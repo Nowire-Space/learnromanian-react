@@ -1,0 +1,38 @@
+.Input{
+    width: 100%;
+    padding: 8px 16px;
+    margin: 8px 0;
+    height: 36px;
+    display: inline-block;
+    box-sizing: border-box;
+
+    background-color: rgba(246, 255, 254, 0.7);
+
+    font-size: 100%;
+    color: rgb(28,41,86);
+
+    border: 1px solid rgb(28,41,86);
+    border-radius: 10px;
+    outline: none;
+
+    -webkit-transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    -ms-transition: all 0.35s ease;
+    -o-transition: all 0.35s ease;
+}
+
+Input::placeholder {
+    color: rgba(28,41,86, 0.5);
+}
+
+Input:focus {
+    box-shadow: 0 0 15px rgb(178,32,40);
+    border: 1px solid rgb(178,32,40);
+    transform: scale(1.05) perspective(1px)
+}
+
+Input:hover {
+    box-shadow: 0 0 15px rgb(178,32,40);
+    border: 1px solid rgb(178,32,40);
+    transform: scale(1.05) perspective(1px)
+}

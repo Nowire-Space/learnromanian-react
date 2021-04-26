@@ -1,3 +1,10 @@
 .Content {
-    margin-top: 0px;
+    padding: 150px 0px 50px 0px;
+    display: flex;
+    flex: 1;
+    /*height: 100%;*/
+    /*padding-bottom: 100px;*/
+    /*min-height: 100%;*/
+    background-image: url("/background_1.png");
+    /*min-height: 100%;*/
 }

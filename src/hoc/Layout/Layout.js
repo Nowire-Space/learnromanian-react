@@ -1,14 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 
+import classes from './Layout.css';
 import Aux from '../Aux/Aux';
-import layoutClasses from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Footer from '../../components/Navigation/Footer/Footer';
 
-class Layout extends Component {
-    render() {
-        return (null);
-    }
+const layout = (props) => {
+    return (
+        <Aux>
+            <Toolbar/>
+            <main className={classes.Content}>
+                {props.children}
+            </main>
+            <Footer/>
+        </Aux>
+        // <img src={logo} alt="Logo"/>
+    );
 }
 
-export default Layout;
+export default layout;
