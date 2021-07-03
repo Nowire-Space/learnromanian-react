@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import classes from './App.css';
 
 import Toolbar from './components/Navigation/Toolbar/Toolbar';
-// import Layout from './hoc/Layout/Layout';
 import LogIn from './components/LogIn/LogIn';
+import Registration from "./components/Registration/Registration";
+import About from "./components/About/About";
 import Footer from './components/Navigation/Footer/Footer';
 import BottomLine from './components/Navigation/BottomLine/BottomLine';
-// import Aux from "./hoc/Aux/Aux";
+
+// import Auxiliary from "./hoc/Auxiliary/Auxiliary";
 
 
 class App extends Component {
@@ -16,14 +19,24 @@ class App extends Component {
         <Toolbar/>
           <div className={classes.Container}>
             <main className={classes.Content}>
-              <LogIn/>
+              <Switch>
+                <Route
+                    path="/login"
+                    component={LogIn} />
+                <Route
+                    path="/registration"
+                    component={Registration} />
+                <Route
+                    path="/about"
+                    component={About} />
+                <Redirect
+                    from="/"
+                    to="/login" />
+              </Switch>
             </main>
           </div>
-          <Footer/>
-          <BottomLine/>
-        {/*<Layout>*/}
-        {/*    <LogIn/>*/}
-        {/*</Layout>*/}
+          {/*<Footer/>*/}
+          {/*<BottomLine/>*/}
       </div>
     );
   }

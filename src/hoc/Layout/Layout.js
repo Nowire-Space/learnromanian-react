@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './Layout.css';
-import Aux from '../Aux/Aux';
+import Aux from '../Auxiliary/Auxiliary';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import Footer from '../../components/Navigation/Footer/Footer';
 
