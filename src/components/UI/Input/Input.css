@@ -8,6 +8,7 @@
 
     background-color: rgba(246, 255, 254, 0.7);
 
+    font: inherit;
     font-size: 100%;
     color: rgb(28,41,86);
 
@@ -35,4 +36,18 @@ Input:hover {
     box-shadow: 0 0 15px rgb(178,32,40);
     border: 1px solid rgb(178,32,40);
     transform: scale(1.05) perspective(1px)
+}
+
+.Select {
+
+}
+
+.Invalid {
+    box-shadow: 0 0 15px rgb(178,32,40);
+    border: 1px solid rgb(178,32,40);
+    background-color: rgba(178, 32, 40, 0.2);
+}
+
+.Invalid::placeholder {
+    color: rgb(178, 32, 40);
 }

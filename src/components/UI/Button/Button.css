@@ -20,6 +20,16 @@
     transform: scale(1.05) perspective(1px)
 }
 
+.Regular:disabled {
+    background-color: rgba(28, 41, 86, 0.2);
+    cursor: not-allowed;
+}
+
+.Important:disabled {
+    background-color: rgba(178, 32, 40, 0.2);
+    cursor: not-allowed;
+}
+
 .Regular {
     color: white;
     background-color: rgb(28,41,86);
