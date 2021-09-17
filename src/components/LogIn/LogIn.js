@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 
+import AuthService from '../../services/AuthService';
+import AuthContext from '../../context/auth-context';
+
 import classes from './LogIn.css';
 import Title from '../UI/Title/Title';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Link from '../UI/Link/Link';
+import Sticker from '../UI/Sticker/Sticker';
 
 class LogIn extends Component {
     state = {
@@ -37,20 +41,19 @@ class LogIn extends Component {
             }
         },
         formIsValid: false,
-        loading: false
+        loading: false,
+        message: "",
+        showMessage: false
     }
 
     checkValidity( value, rules ) {
         let isValid = true;
-
         if ( rules.required ) {
             isValid = value.trim() !== '' && isValid;
         }
-
         if ( rules.minLength ) {
             isValid = value.length >= rules.minLength && isValid;
         }
-
         if ( rules.maxLength ) {
             isValid = value.length <= rules.maxLength && isValid;
         }
@@ -58,13 +61,37 @@ class LogIn extends Component {
         return isValid;
     }
 
-    logInHandler = ( event ) => {
+    logInHandler = ( event, updateUser ) => {
         event.preventDefault();
+
+        this.setState({ message: "", showMessage: false, loading: true });
+
         const logInFormData = {};
         for (let logInFormElementIdentifier in this.state.logInForm ) {
             logInFormData[logInFormElementIdentifier] = this.state.logInForm[logInFormElementIdentifier].value;
         }
-        console.log(logInFormData);
+
+        AuthService
+            .logIn(this.state.logInForm.email.value, this.state.logInForm.password.value)
+            .then( () => {
+                updateUser();
+                this.props.history.push('/profile')
+            },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                    console.log(resMessage);
+
+                    this.setState({
+                        loading: false,
+                        message: resMessage,
+                        showMessage: true
+                    });
+                })
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -78,7 +105,6 @@ class LogIn extends Component {
         let formIsValid = true;
         for ( let inputIdentifier in updatedLogInForm ) {
             formIsValid = updatedLogInForm[ inputIdentifier ].valid && formIsValid;
-            console.log(formIsValid);
         }
 
         this.setState({ logInForm: updatedLogInForm, formIsValid: formIsValid });
@@ -94,21 +120,28 @@ class LogIn extends Component {
         }
 
         let logInForm = (
-            <form onSubmit={ this.logInHandler }>
-                {formElementsArray.map(formElement => (
-                    <Input key={ formElement.id }
-                           elementType={ formElement.config.elementType }
-                           elementConfig={ formElement.config.elementConfig }
-                           invalid={ !formElement.config.valid }
-                           touched={ formElement.config.touched }
-                           value={ formElement.config.value }
-                           changed={ ( event ) => this.inputChangedHandler( event, formElement.id ) }/>
-                ))}
-                    <Button buttonType='Important'
-                            disabled={ !this.state.formIsValid }>
-                        Conectare
-                    </Button>
-            </form>
+            <AuthContext.Consumer>
+                {(context) =>
+                    <form onSubmit={(event) => this.logInHandler(event, context.updateUser) }>
+                        {formElementsArray.map( formElement => (
+                            <Input key={ formElement.id }
+                                   elementType={ formElement.config.elementType }
+                                   elementConfig={ formElement.config.elementConfig }
+                                   invalid={ !formElement.config.valid }
+                                   touched={ formElement.config.touched }
+                                   value={ formElement.config.value }
+                                   changed={ ( event ) => this.inputChangedHandler( event, formElement.id ) }/>
+                        ))}
+                        { this.state.showMessage && <Sticker>
+                            {this.state.message.replace("Error: ", "")}
+                        </Sticker>}
+                        <Button buttonType='Important'
+                                disabled={ !this.state.formIsValid }
+                                loading = { this.state.loading }>
+                            Conectare
+                        </Button>
+                    </form>}
+            </AuthContext.Consumer>
         )
 
         return(

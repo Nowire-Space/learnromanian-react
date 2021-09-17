@@ -1,0 +1,15 @@
+.Sticker {
+    width: 100%;
+    padding: 8px 16px;
+    margin: 8px 0;
+    font-size: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: rgba(178,32,40,0.2);
+    color: rgb(28,41,86);
+}

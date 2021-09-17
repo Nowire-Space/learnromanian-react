@@ -32,28 +32,3 @@
 .Right {
     float: right;
 }
-
-.Stick {
-    animation: show-warn 1s forwards;
-}
-
-.warn-anim-in {
-    animation: show-warn 1s forwards;
-}
-
-.warn-anim-out {
-    animation: show-warn 1s reverse;
-}
-
-@keyframes show-warn {
-    0% {
-        opacity: 0;
-        transform: translateY(-200px);
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
