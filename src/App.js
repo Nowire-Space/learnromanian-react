@@ -94,9 +94,9 @@ class App extends Component {
             closeClicked={this.sideDrawerToggleHandler}/>
           <div className={classes.Container}>
             <main className={classes.Content}>
-              <Switch>
-                <AuthContext.Provider value={{
-                  updateUser: this.updateCurrentUser}}>
+              <AuthContext.Provider value={{
+                updateUser: this.updateCurrentUser}}>
+                <Switch>
                   <DefaultRoute
                       exact
                       path={["/","/home"]}>
@@ -130,17 +130,19 @@ class App extends Component {
                       role="ROLE_STUDENT"
                       path="/student"
                       component={StudentBoard} />
+                  //Route for forbidden paths
                   <Route
                       path="/forbidden"
                       component={Forbidden} />
-                  {/*<Route>*/}
-                  {/*  <Redirect to="/404"/>*/}
-                  {/*</Route>*/}
-                  {/*<Route*/}
-                  {/*  path="/404"*/}
-                  {/*  component={NotFound} />*/}
-                </AuthContext.Provider>
-              </Switch>
+                  //Route for Not Found paths
+                  <Route
+                      path="/404"
+                      component={NotFound} />
+                  <Route path="/*">
+                    <Redirect to="/404"/>
+                  </Route>
+                </Switch>
+              </AuthContext.Provider>
             </main>
           </div>
           {/*<Footer/>*/}
