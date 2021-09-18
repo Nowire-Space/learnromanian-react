@@ -119,22 +119,22 @@ class App extends Component {
                       path="/admin"
                       component={AdminBoard} />
                   <PrivateRoute
-                      role="ROLE_MODERATOR"
+                      role={Role.MODERATOR}
                       path="/moderator"
                       component={ModeratorBoard} />
                   <PrivateRoute
-                      role="ROLE_PROFESSOR"
+                      role={Role.PROFESSOR}
                       path="/professor"
                       component={ProfessorBoard} />
                   <PrivateRoute
-                      role="ROLE_STUDENT"
+                      role={Role.STUDENT}
                       path="/student"
                       component={StudentBoard} />
-                  //Route for forbidden paths
+                  {/*Route for forbidden paths*/}
                   <Route
                       path="/forbidden"
                       component={Forbidden} />
-                  //Route for Not Found paths
+                  {/*Route for Not Found paths*/}
                   <Route
                       path="/404"
                       component={NotFound} />

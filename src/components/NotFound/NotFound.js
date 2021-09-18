@@ -1,9 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
+import classes from "./NotFound.css";
+import Title from "../UI/Title/Title";
 
-class NotFound extends Component {
-    render() {
-        return (<h3>NotFound 404</h3>);
-    }
-};
+const notFound = () => (
+    <div className={classes.NotFound}>
+        <Title>404</Title>
+        <div className={classes.Body}>
+            Ne pare rău, pagina nu a fost găsită!
+        </div>
+    </div>
+)
 
-export default NotFound;
+export default notFound;
