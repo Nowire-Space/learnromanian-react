@@ -39,3 +39,19 @@
     color: white;
     background-color: rgb(178,32,40);
 }
+
+.Floating {
+    width: auto;
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: black;
+    background-color: lightgray;
+
+}
+
+.Half {
+    width: 50%;
+}

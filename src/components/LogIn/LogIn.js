@@ -76,7 +76,7 @@ class LogIn extends Component {
             .then( () => {
                 updateUser();
                 this.props.history.push('/profile')
-            },
+                },
                 error => {
                     const resMessage =
                         (error.response &&

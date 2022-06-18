@@ -1,9 +1,28 @@
 import React, {Component} from 'react';
+import Title from "../UI/Title/Title";
+import Button from "../UI/Button/Button";
+import classes from './Admin.css';
 
-class Admin extends Component {
-    render() {
-        return (<h3>Admin component</h3>);
-    }
+const admin = () => {
+    return (
+      <div className={classes.Admin}>
+          <Title>Admin Console</Title>
+          <div className={classes.Body}>
+              {/*<div className={classes.Photo}>*/}
+              {/*    <ProfilePhoto className={classes.ProfilePhoto}*/}
+              {/*                  profilePhoto={this.state.profilePhoto}/>*/}
+              {/*</div>*/}
+              {/*<div className={classes.Info}>*/}
+              {/*    <p>{this.state.userFamilyName} {this.state.userName} | {this.state.role}</p>*/}
+              {/*    <p>Număr de telefon: {this.state.userPhoneNumber}</p>*/}
+              {/*    <p>E-mail: {this.state.userEmail}</p>*/}
+              {/*    <div className={classes.Password}>*/}
+              {/*        <Button buttonType='Regular' halfSize>Schimbă parola</Button>*/}
+              {/*    </div>*/}
+              {/*</div>*/}
+          </div>
+      </div>
+    )
 };
 
-export default Admin;
+export default admin;

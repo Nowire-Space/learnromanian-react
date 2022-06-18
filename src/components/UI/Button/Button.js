@@ -22,10 +22,13 @@ const button = (props) => {
         }
     }, [ props.loading, showLoader ]);
 
+    const classesArray = [ classes.Button, classes[ props.buttonType ] ];
+    props.halfSize && classesArray.push( classes.Half );
+
     return (
         <button
             disabled={ props.disabled }
-            className={ [ classes.Button, classes[ props.buttonType ] ].join(' ') }
+            className={ classesArray.join(' ') }
             onClick={ props.clicked }>
             { showLoader ? <PropagateLoader/> : props.children }
         </button>
