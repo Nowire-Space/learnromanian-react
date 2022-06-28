@@ -1,53 +1,60 @@
-.Input{
-    width: 100%;
-    padding: 8px 16px;
-    margin: 8px 0;
-    height: 36px;
-    display: inline-block;
-    box-sizing: border-box;
+/*Input:hover {*/
+/*    box-shadow: 0 0 15px rgb(178,32,40);*/
+/*    border: 1px solid rgb(178,32,40);*/
+/*    transform: scale(1.05) perspective(1px)*/
+/*}*/
 
-    background-color: rgba(246, 255, 254, 0.7);
+/*.Select {*/
 
-    font: inherit;
-    font-size: 100%;
-    color: rgb(28,41,86);
+/*}*/
 
-    border: 1px solid rgb(28,41,86);
-    border-radius: 10px;
-    outline: none;
-
-    -webkit-transition: all 0.35s ease;
-    -moz-transition: all 0.35s ease;
-    -ms-transition: all 0.35s ease;
-    -o-transition: all 0.35s ease;
-}
-
-Input::placeholder {
-    color: rgba(28,41,86, 0.5);
-}
-
-Input:focus {
-    box-shadow: 0 0 15px rgb(178,32,40);
-    border: 1px solid rgb(178,32,40);
-    transform: scale(1.05) perspective(1px)
-}
-
-Input:hover {
-    box-shadow: 0 0 15px rgb(178,32,40);
-    border: 1px solid rgb(178,32,40);
-    transform: scale(1.05) perspective(1px)
-}
-
-.Select {
-
-}
-
-.Invalid {
-    box-shadow: 0 0 15px rgb(178,32,40);
-    border: 1px solid rgb(178,32,40);
-    background-color: rgba(178, 32, 40, 0.2);
-}
+/*.Invalid {*/
+/*    box-shadow: 0 0 15px rgb(178,32,40);*/
+/*    border: 1px solid rgb(178,32,40);*/
+/*    background-color: rgba(178, 32, 40, 0.2);*/
+/*}*/
 
 .Invalid::placeholder {
     color: rgb(178, 32, 40);
+}
+
+.LabeledInput {
+    margin: 10px 0;
+}
+
+.LabeledInput label {
+    font-size: 14px;
+    font-weight: normal;
+    color: #8083A3;
+}
+
+.LabeledInput input {
+    display: inline-block;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    font-weight: 500;
+    color: #1A1C1D;
+
+    width: 100%;
+    margin: 0;
+    padding: 16px 0;
+
+    border: none;
+    border-bottom: 1px solid #ECEEF5;
+}
+
+.LabeledInput input:focus {
+    outline: none;
+}
+
+.LabeledInput input::placeholder {
+    color: #8083A3;
+}
+
+.LabeledInput .IconInput i {
+    position: absolute;
+
+    padding: 10px;
+    min-width: 40px;
 }

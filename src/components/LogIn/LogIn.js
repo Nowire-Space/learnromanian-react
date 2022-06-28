@@ -10,6 +10,8 @@ import Button from '../UI/Button/Button';
 import Link from '../UI/Link/Link';
 import Sticker from '../UI/Sticker/Sticker';
 
+import { FaPen, FaRegEye } from "react-icons/all";
+
 class LogIn extends Component {
     state = {
         logInForm: {
@@ -17,7 +19,9 @@ class LogIn extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'Adresa e-mail'
+                    label: 'E-mail address',
+                    icon: <i><FaPen/></i>,
+                    placeholder: 'Start typing...'
                 },
                 value: '',
                 validation: {
@@ -30,7 +34,9 @@ class LogIn extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Parola'
+                    label: 'Password',
+                    icon: <i><FaRegEye/></i>,
+                    placeholder: 'Start typing...'
                 },
                 value: '',
                 validation: {
@@ -124,6 +130,7 @@ class LogIn extends Component {
                 {(context) =>
                     <form onSubmit={(event) => this.logInHandler(event, context.updateUser) }>
                         {formElementsArray.map( formElement => (
+                          <div>
                             <Input key={ formElement.id }
                                    elementType={ formElement.config.elementType }
                                    elementConfig={ formElement.config.elementConfig }
@@ -131,6 +138,7 @@ class LogIn extends Component {
                                    touched={ formElement.config.touched }
                                    value={ formElement.config.value }
                                    changed={ ( event ) => this.inputChangedHandler( event, formElement.id ) }/>
+                          </div>
                         ))}
                         { this.state.showMessage && <Sticker>
                             {this.state.message.replace("Error: ", "")}
@@ -146,7 +154,8 @@ class LogIn extends Component {
 
         return(
             <div className={classes.LogIn}>
-                <Title>Autentificare</Title>
+                <Title>Welcome!</Title>
+                <Title>Please log in to get started.</Title>
                 { logInForm }
                 <div className={classes.Links}>
                     <div className={classes.Left}>

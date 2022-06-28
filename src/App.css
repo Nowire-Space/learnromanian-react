@@ -5,13 +5,17 @@
 }
 
 .Container {
-  padding: 0px 0px 0px 0px;
   display: flex;
   flex: 1;
 }
 
 .Content {
-  padding: 100px 0px 0px 0px;
+  display: flex;
   flex: 1;
-  background-image: url("/background_1.png");
+
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("/background_main.png");
+  background-size: cover;
 }

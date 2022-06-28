@@ -7,7 +7,7 @@ const DefaultRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => {
     const currentUser = AuthService.getCurrentUser();
     if (!currentUser) {
-        return <Redirect to={{ pathname: '/login' }} />
+        return <Redirect to={{ pathname: '/about' }} />
     }
     return <Redirect to={{ pathname: '/profile' }} />
     }}/>

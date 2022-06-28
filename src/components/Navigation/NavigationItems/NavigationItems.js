@@ -3,6 +3,7 @@ import React, {useContext} from 'react';
 import classes from './NavigationItems.css';
 import AuthContext from '../../../context/auth-context';
 import NavigationItem from './NavigationItem/NavigationItem';
+import LanguageSelector from "./LanguageSelector/LanguageSelector";
 
 const navigationItems = () => {
     const authContext = useContext(AuthContext);
@@ -52,9 +53,10 @@ const navigationItems = () => {
     }else {
         return(
             <ul className={classes.NavigationItems}>
-                <NavigationItem link="/login">Autentificare</NavigationItem>
-                <NavigationItem link="/registration">Înregistrare</NavigationItem>
-                <NavigationItem link="/about">Despre noi</NavigationItem>
+              <LanguageSelector/>
+              <NavigationItem link="/login">Log in</NavigationItem>
+                {/*<NavigationItem link="/registration">Înregistrare</NavigationItem>*/}
+                {/*<NavigationItem link="/about">Despre noi</NavigationItem>*/}
             </ul>
         );
     }
