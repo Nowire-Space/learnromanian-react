@@ -20,7 +20,7 @@ class LogIn extends Component {
                 elementConfig: {
                     type: 'email',
                     label: 'E-mail address',
-                    icon: <i><FaPen/></i>,
+                    // icon: <i><FaPen/></i>,
                     placeholder: 'Start typing...'
                 },
                 value: '',
@@ -35,7 +35,7 @@ class LogIn extends Component {
                 elementConfig: {
                     type: 'password',
                     label: 'Password',
-                    icon: <i><FaRegEye/></i>,
+                    // icon: <i><FaRegEye/></i>,
                     placeholder: 'Start typing...'
                 },
                 value: '',
