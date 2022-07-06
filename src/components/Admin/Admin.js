@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Title from "../UI/Title/Title";
-import Button from "../UI/Button/Button";
 import classes from './Admin.css';
 
 const admin = () => {

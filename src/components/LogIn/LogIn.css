@@ -1,8 +1,11 @@
 .LogIn {
-    padding: 24px;
-    /*width: 400px;*/
+    padding: 50px;
     background: #FFFFFF;
     border-radius: 4px;
+}
+
+.Title {
+    margin-bottom: 36px;
 }
 
 .Inputs {
@@ -11,8 +14,18 @@
 }
 
 .Links {
-    margin-top: 4px;
+    margin: 24px 0 24px 0;
     overflow: auto;
+
+    font-weight: bold;
+    color: #24377A;
+}
+
+.Links input {
+    margin: 0 4px 0 0;
+    border-radius: 10px;
+    border: 3px solid #24377A;
+    color: #24377A;
 }
 
 .Left {

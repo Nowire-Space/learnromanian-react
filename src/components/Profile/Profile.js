@@ -4,7 +4,6 @@ import ProfileService from "../../services/ProfileService";
 
 import classes from './Profile.css';
 import Title from "../UI/Title/Title";
-import ProfilePhoto from '../UI/ProfilePhoto/ProfilePhoto';
 import Button from '../UI/Button/Button';
 
 class Profile extends Component {

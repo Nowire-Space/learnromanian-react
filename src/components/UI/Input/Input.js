@@ -1,8 +1,7 @@
 import React from "react";
 
 import classes from './Input.css';
-
-import { FaFontAwesome } from "react-icons/all";
+import PasswordInput from "../PasswordInput/PasswordInput";
 
 const input = ( props ) => {
     let inputElement;
@@ -33,6 +32,9 @@ const input = ( props ) => {
                          { ...props.elementConfig } />
               </div>
             break;
+        case ('passwordInput'):
+            inputElement = <PasswordInput {...props}/>
+            break;
         case ('textarea'):
             inputElement = <textarea value={ props.value }
                                      onChange={ props.changed }
@@ -49,6 +51,13 @@ const input = ( props ) => {
                     </option>
                 )) }
             </select>;
+            break;
+        case ('checkbox'):
+            inputElement =
+              <div>
+                  <input type={ props.elementType } id={ props.elementName } name={ props.elementName }/>
+                  <label for={ props.elementName }>{ props.label }</label>
+              </div>
             break;
         default:
             inputElement = <input className={ inputClasses.join( ' ' ) }

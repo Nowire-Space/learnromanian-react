@@ -10,7 +10,7 @@ import Button from '../UI/Button/Button';
 import Link from '../UI/Link/Link';
 import Sticker from '../UI/Sticker/Sticker';
 
-import { FaPen, FaRegEye } from "react-icons/all";
+import {FaRegEye, FaPen} from "react-icons/fa";
 
 class LogIn extends Component {
     state = {
@@ -20,7 +20,7 @@ class LogIn extends Component {
                 elementConfig: {
                     type: 'email',
                     label: 'E-mail address',
-                    // icon: <i><FaPen/></i>,
+                    icon: <i><FaPen/></i>,
                     placeholder: 'Start typing...'
                 },
                 value: '',
@@ -31,11 +31,10 @@ class LogIn extends Component {
                 touched: false
             },
             password: {
-                elementType: 'input',
+                elementType: 'passwordInput',
                 elementConfig: {
-                    type: 'password',
                     label: 'Password',
-                    // icon: <i><FaRegEye/></i>,
+                    icon: <i><FaRegEye/></i>,
                     placeholder: 'Start typing...'
                 },
                 value: '',
@@ -143,28 +142,30 @@ class LogIn extends Component {
                         { this.state.showMessage && <Sticker>
                             {this.state.message.replace("Error: ", "")}
                         </Sticker>}
-                        <Button buttonType='Important'
-                                disabled={ !this.state.formIsValid }
-                                loading = { this.state.loading }>
-                            Conectare
-                        </Button>
                     </form>}
             </AuthContext.Consumer>
         )
 
         return(
             <div className={classes.LogIn}>
-                <Title>Welcome!</Title>
-                <Title>Please log in to get started.</Title>
+                <div className={classes.Title}>
+                    <Title>Welcome!</Title>
+                    <Title>Please log in to get started.</Title>
+                </div>
                 { logInForm }
                 <div className={classes.Links}>
                     <div className={classes.Left}>
-                        <Link href='/'>Creare cont</Link>
+                        <Input elementName='rememberMeCheckbox' elementType='checkbox' label='Remember me' />
                     </div>
                     <div className={classes.Right}>
-                        <Link href='/'>Resetare parolă</Link>
+                        <Link href='/'>Recover password</Link>
                     </div>
                 </div>
+                <Button buttonType='Regular'
+                        disabled={ !this.state.formIsValid }
+                        loading = { this.state.loading }>
+                    Log In
+                </Button>
             </div>
         );
     }
