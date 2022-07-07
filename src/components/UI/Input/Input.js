@@ -11,25 +11,27 @@ const input = ( props ) => {
         inputClasses.push( classes.Invalid )
     }
 
+    // if ( props.elementConfig.halfSize ) {
+    //     inputClasses.push( classes.HalfSize )
+    // }
+
     switch ( props.elementType ) {
         case ('input'):
-            inputElement = props.elementConfig.label ?
+            inputElement = props.label ?
               <div className={classes.LabeledInput}>
                   <label>
-                      {props.elementConfig.label}
+                      {props.label}
                       <div className={classes.IconInput}>
-                          {props.elementConfig.icon}
+                          {props.icon}
                           <input value={ props.value }
-                                 onChange={ props.changed }
-                                 { ...props.elementConfig } />
+                                 onChange={ props.changed } />
                       </div>
                   </label>
               </div> :
               <div className={classes.LabeledInput}>
-                  {props.elementConfig.icon}
+                  {props.icon}
                   <input value={ props.value }
-                         onChange={ props.changed }
-                         { ...props.elementConfig } />
+                         onChange={ props.changed } />
               </div>
             break;
         case ('passwordInput'):

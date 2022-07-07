@@ -53,10 +53,10 @@ const navigationItems = () => {
     }else {
         return(
             <ul className={classes.NavigationItems}>
-              <LanguageSelector/>
-              <NavigationItem link="/login">Log in</NavigationItem>
-                {/*<NavigationItem link="/registration">Înregistrare</NavigationItem>*/}
-                {/*<NavigationItem link="/about">Despre noi</NavigationItem>*/}
+                <LanguageSelector/>
+                <NavigationItem link="/about">Home</NavigationItem>
+                <NavigationItem link="/login">Log in</NavigationItem>
+                <NavigationItem link="/registration">Registration</NavigationItem>
             </ul>
         );
     }

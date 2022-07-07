@@ -34,7 +34,6 @@ class LogIn extends Component {
                 elementType: 'passwordInput',
                 elementConfig: {
                     label: 'Password',
-                    icon: <i><FaRegEye/></i>,
                     placeholder: 'Start typing...'
                 },
                 value: '',
