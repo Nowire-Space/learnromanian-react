@@ -5,7 +5,7 @@ import PasswordInput from "../PasswordInput/PasswordInput";
 
 const input = ( props ) => {
     let inputElement;
-    const inputClasses = [ classes.Input ];
+    const inputClasses = [];
 
     if ( props.invalid && props.touched ) {
         inputClasses.push( classes.Invalid )
@@ -24,7 +24,8 @@ const input = ( props ) => {
                       <div className={classes.IconInput}>
                           {props.icon}
                           <input value={ props.value }
-                                 onChange={ props.changed } />
+                                 onChange={ props.changed }
+                                 placeholder={props.placeholder}/>
                       </div>
                   </label>
               </div> :
@@ -43,22 +44,32 @@ const input = ( props ) => {
                                      { ...props.elementConfig } />;
             break;
         case ('select'):
-            inputElement = <select className={ classes.Select }
-                                   value={ props.value }
-                                   onChange={ props.changed }>
-                { props.elementConfig.options.map( option => (
-                    <option key={ option.value }
-                            value={ option.value }>
-                        { option.displayValue }
-                    </option>
-                )) }
-            </select>;
+            inputElement = <div className={classes.LabeledInput}>
+                <label>
+                    {props.label}
+                    <div className={classes.IconInput}>
+                        {props.icon}
+                        <select className={ classes.Select }
+                                value={ props.value }
+                                onChange={ props.changed }>
+                            {props.options}
+
+                            {/*{ props.options.map( option => (*/}
+                            {/*    <option key={ option.value }*/}
+                            {/*            value={ option.value }>*/}
+                            {/*        { option.displayValue }*/}
+                            {/*    </option>*/}
+                            {/*)) }*/}
+                        </select>
+                    </div>
+                </label>
+            </div>
             break;
         case ('checkbox'):
             inputElement =
               <div>
                   <input type={ props.elementType } id={ props.elementName } name={ props.elementName }/>
-                  <label for={ props.elementName }>{ props.label }</label>
+                  <label htmlFor={ props.elementName }>{ props.label }</label>
               </div>
             break;
         default:

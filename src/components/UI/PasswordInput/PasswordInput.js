@@ -17,10 +17,10 @@ const passwordInput = ( props ) => {
   return(
     <div className={ classes.LabeledPasswordInput }>
       <label>
-        {props.elementConfig.label}
+        {props.label}
         <div className={ classes.IconPasswordInput }>
           { passwordInputIcon }
-          <input placeholder={props.elementConfig.placeholder}
+          <input placeholder={props.placeholder}
                  value={ props.value }
                  onChange={ props.changed }
                  type={ passwordVisibility ? 'text' : 'password' }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import classes from './Registration.css';
 import Title from '../UI/Title/Title';
@@ -6,109 +6,12 @@ import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Subtitle from "../UI/Subtitle/Subtitle";
 import {FaPen} from "react-icons/fa";
-import Link from "../UI/Link/Link";
+import RoleService from "../../services/RoleService";
+import SpecializationService from "../../services/SpecializationService";
 
 const registration = ( props ) => {
-    // state = {
-    //     registrationForm: {
-    //         email: {
-    //             elementType: 'input',
-    //             elementConfig: {
-    //                 type: 'email',
-    //                 label: 'E-mail',
-    //                 icon: <i><FaPen/></i>,
-    //                 placeholder: 'Your e-mail'
-    //             },
-    //             value: '',
-    //             validation: {
-    //                 required: true
-    //             },
-    //             valid: false,
-    //             touched: false
-    //         },
-    //         row: {
-    //             elements: [
-    //                 {
-    //                     elementType: 'input',
-    //                     elementConfig: {
-    //                         type: 'text',
-    //                         label: 'First name',
-    //                         icon: <i><FaPen/></i>,
-    //                         placeholder: 'Your name'
-    //                     },
-    //                     value: '',
-    //                     validation: {
-    //                         required: true
-    //                     },
-    //                     valid: false,
-    //                     touched: false
-    //                 },
-    //                 {
-    //                     elementType: 'input',
-    //                     elementConfig: {
-    //                         type: 'text',
-    //                         label: 'Last name',
-    //                         icon: <i><FaPen/></i>,
-    //                         placeholder: 'Your last name'
-    //                     },
-    //                     value: '',
-    //                     validation: {
-    //                         required: true
-    //                     },
-    //                     valid: false,
-    //                     touched: false
-    //                 }
-    //             ],
-    //             elementConfig: {
-    //                 type: 'row'
-    //             }
-    //         },
-    //         phoneNumber: {
-    //             elementType: 'input',
-    //             elementConfig: {
-    //                 type: 'tel',
-    //                 label: 'Phone number',
-    //                 icon: <i><FaPen/></i>,
-    //                 placeholder: 'Your phone number'
-    //             },
-    //             value: '',
-    //             validation: {
-    //                 required: true
-    //             },
-    //             valid: false,
-    //             touched: false
-    //         },
-    //         password: {
-    //             elementType: 'passwordInput',
-    //             elementConfig: {
-    //                 type: 'password',
-    //                 label: 'Password',
-    //                 placeholder: 'Add password'
-    //             },
-    //             value: '',
-    //             validation: {
-    //                 required: true
-    //             },
-    //             valid: false,
-    //             touched: false
-    //         },
-    //         verifiedPassword: {
-    //             elementType: 'passwordInput',
-    //             elementConfig: {
-    //                 type: 'password',
-    //                 label: 'Confirm password',
-    //                 placeholder: 'Confirm your password'
-    //             },
-    //             value: '',
-    //             validation: {
-    //                 required: true
-    //             },
-    //             valid: false,
-    //             touched: false
-    //         }
-    //     }
-    // }
-
+    const [registrationRoles, setRegistrationRoles] = useState([]);
+    const [registrationSpecializations, setRegistrationSpecializations] = useState([]);
     // checkValidity( value, rules ) {
     //     let isValid = true;
     //
@@ -126,6 +29,25 @@ const registration = ( props ) => {
     //
     //     return isValid;
     // }
+    useEffect(() => {
+        RoleService
+          .getRegistrationRoles()
+          .then( (data) => {
+              setRegistrationRoles(data);
+            },
+            error => {
+                console.log('TODO on error')
+            })
+
+        SpecializationService
+          .getRegistrationSpecializations()
+          .then( (data) => {
+              setRegistrationSpecializations(data);
+            },
+            error => {
+                console.log('TODO on error')
+            })
+    }, []);
 
     const registrationHandler = (event) => {
         event.preventDefault();
@@ -227,13 +149,45 @@ const registration = ( props ) => {
                 <div className={classes.Row}>
                     <Input elementType='input'
                            label='First name'
+                           // className={classes.RowFirstEl}
                            icon={<i><FaPen/></i>}
                            placeholder='Your name'/>
                     <Input elementType='input'
                            label='Last name'
+                           // className={classes.RowSecondEl}
                            icon={<i><FaPen/></i>}
                            placeholder='Your last name'/>
                 </div>
+                <Input elementType='input'
+                       label='Phone number'
+                       icon={<i><FaPen/></i>}
+                       placeholder='Your phone number'/>
+                <Input elementType='select'
+                       label='Select role'
+                       options={registrationRoles.map(role => (
+                         <option key={role.roleId} value={role.roleId}>{role.roleName}</option>
+                       ))} />
+                <Input elementType='select'
+                       label='Select specialization'
+                       options={registrationSpecializations.map(specialization => (
+                         <option key={specialization.specializationId} value={specialization.specializationId}>{specialization.specializationName}</option>
+                       ))} />
+                <Input elementType='passwordInput'
+                       label='Password'
+                       placeholder='Add password'/>
+                <Input elementType='passwordInput'
+                       label='Confirm password'
+                       placeholder='Confirm your password'/>
+                <div className={classes.Links}>
+                    <div className={classes.Left}>
+                        <Input elementName='termsAndConditionsCheckbox'
+                               elementType='checkbox'
+                               label='I agree with terms & conditions' />
+                    </div>
+                </div>
+                <Button buttonType='Regular'>
+                    Register
+                </Button>
             </form>
         </div>
     );
