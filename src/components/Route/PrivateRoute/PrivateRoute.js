@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import AuthService from '../../../services/AuthService';
+import AccountService from '../../../services/AccountService';
 
 const PrivateRoute = ({ component: Component, role, ...rest }) => (
     <Route {...rest} render={props => {
-    const currentUser = AuthService.getCurrentUser();
+    const currentUser = AccountService.getCurrentUser();
     if (!currentUser) {
         return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
     }

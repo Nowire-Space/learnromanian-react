@@ -54,3 +54,12 @@
     display: flex;
     justify-content: space-between;
 }
+
+.Error {
+    justify-content: space-between;
+    text-align: center;
+}
+
+.Error p {
+    color: #d02129;
+}

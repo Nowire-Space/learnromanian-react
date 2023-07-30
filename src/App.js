@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import classes from './App.css';
 
-import AuthService from './services/AuthService';
+import AccountService from './services/AccountService';
 import AuthContext from './context/auth-context';
 import EventBus from './common/EventBus';
 import DefaultRoute from "./components/Route/DefaultRoute/DefaultRoute";
@@ -13,6 +13,7 @@ import Toolbar from './components/Navigation/Toolbar/Toolbar';
 import SideDrawer from './components/Navigation/SideDrawer/SideDrawer';
 import LogIn from './components/LogIn/LogIn';
 import Registration from "./components/Registration/Registration";
+import Validation from "./components/Validation/Validation";
 import About from './components/About/About';
 import Profile from './components/Profile/Profile';
 import AdminBoard from "./components/Admin/Admin";
@@ -41,15 +42,15 @@ class App extends Component {
   }
 
   updateCurrentUser = () => {
-    const user = AuthService.getCurrentUser();
-
+    const user = AccountService.getCurrentUser();
+console.log("user is here", user)
     if (user) {
       this.setState({
         currentUser: user,
         loggedIn: true,
         showModeratorBoard: user.role === ("ROLE_MODERATOR"),
-        showAdminBoard: user.role.contains === ("ROLE_ADMIN"),
-        showProfessorBoard: user.role.contains === ("ROLE_MODERATOR")
+        showAdminBoard: user.role === ("ROLE_ADMIN"),
+        showProfessorBoard: user.role === ("ROLE_MODERATOR")
       });
     }
 
@@ -59,7 +60,7 @@ class App extends Component {
   }
 
   logOut = () => {
-    AuthService.logOut();
+    AccountService.logOut();
     this.setState({
       showModeratorBoard: false,
       showAdminBoard: false,
@@ -138,6 +139,9 @@ class App extends Component {
                   <Route
                       path="/404"
                       component={NotFound} />
+                  <Route
+                      path="/validate/:token"
+                      component={Validation} />
                   <Route path="/*">
                     <Redirect to="/404"/>
                   </Route>

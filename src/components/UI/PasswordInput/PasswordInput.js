@@ -27,6 +27,9 @@ const passwordInput = ( props ) => {
           />
         </div>
       </label>
+      <div className={classes.Error}>
+        <p>{props.errorMessage}</p>
+      </div>
     </div>
   );
 }
