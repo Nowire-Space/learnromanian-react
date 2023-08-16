@@ -113,7 +113,7 @@ const LogIn = () => {
                                        changed={e => setRememberMe(prevState => !prevState)}/>
                             </div>
                             <div className={classes.Right}>
-                                <Link href='/'>Recover password</Link>
+                                <Link href='/reset'>Recover password</Link>
                             </div>
                         </div>
                         <Button buttonType='Regular'

@@ -22,6 +22,7 @@ import ProfessorBoard from "./components/Professor/Professor";
 import StudentBoard from "./components/Student/Student";
 import Forbidden from "./components/Forbidden/Forbidden";
 import NotFound from "./components/NotFound/NotFound";
+import Reset from "./components/Reset/Reset";
 
 class App extends Component {
   state = {
@@ -106,6 +107,10 @@ console.log("user is here", user)
                       exact
                       path="/login"
                       component={LogIn} />
+                  <Route
+                      exact
+                      path="/reset"
+                      component={Reset} />
                   <Route
                       path="/registration"
                       component={Registration} />

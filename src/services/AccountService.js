@@ -32,6 +32,11 @@ class AccountService {
         return axiosBackendTest.post( 'account/validate/'.concat(token) );
     }
 
+    static reset( email ) {
+        console.log('calling', email);
+        return axiosBackendTest.post( 'account/password/reset', {email} );
+    }
+
     static getCurrentUser() {
         return JSON.parse( localStorage.getItem( 'user' ) );
     }
