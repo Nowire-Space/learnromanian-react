@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
-import AuthService from '../../services/AuthService';
+import AccountService from '../../services/AccountService';
 import AuthContext from '../../context/auth-context';
 
 import classes from './LogIn.css';
@@ -8,78 +8,36 @@ import Title from '../UI/Title/Title';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Link from '../UI/Link/Link';
-import Sticker from '../UI/Sticker/Sticker';
 
-import {FaRegEye, FaPen} from "react-icons/fa";
+import {FaPen} from "react-icons/fa";
+import {useHistory} from "react-router-dom";
 
-class LogIn extends Component {
-    state = {
-        logInForm: {
-            email: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'email',
-                    label: 'E-mail address',
-                    icon: <i><FaPen/></i>,
-                    placeholder: 'Start typing...'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
-            password: {
-                elementType: 'passwordInput',
-                elementConfig: {
-                    label: 'Password',
-                    placeholder: 'Start typing...'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            }
-        },
-        formIsValid: false,
-        loading: false,
-        message: "",
-        showMessage: false
-    }
+const LogIn = () => {
+    const history = useHistory();
 
-    checkValidity( value, rules ) {
-        let isValid = true;
-        if ( rules.required ) {
-            isValid = value.trim() !== '' && isValid;
-        }
-        if ( rules.minLength ) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if ( rules.maxLength ) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [showLogInError, setShowLogInError] = useState(false);
+    const [logInError, setLogInError] = useState('');
 
-        return isValid;
-    }
+    const [emailMinLength] = useState(6);
+    const [emailMaxLength] = useState(40);
+    const [passwordMinLength] = useState(6);
+    const [passwordMaxLength] = useState(20);
 
-    logInHandler = ( event, updateUser ) => {
+    const logInHandler = (event, updateUser) => {
         event.preventDefault();
-
-        this.setState({ message: "", showMessage: false, loading: true });
-
-        const logInFormData = {};
-        for (let logInFormElementIdentifier in this.state.logInForm ) {
-            logInFormData[logInFormElementIdentifier] = this.state.logInForm[logInFormElementIdentifier].value;
-        }
-
-        AuthService
-            .logIn(this.state.logInForm.email.value, this.state.logInForm.password.value)
-            .then( () => {
-                updateUser();
-                this.props.history.push('/profile')
+        setLoading(true);
+        setShowLogInError(false);
+        validateForm() && AccountService
+            .logIn(email, password)
+            .then(() => {
+                    updateUser();
+                    history.push('/profile')
                 },
                 error => {
                     const resMessage =
@@ -89,85 +47,88 @@ class LogIn extends Component {
                         error.message ||
                         error.toString();
                     console.log(resMessage);
-
-                    this.setState({
-                        loading: false,
-                        message: resMessage,
-                        showMessage: true
-                    });
-                })
+                    setLoading(false);
+                    setLogInError(resMessage);
+                    setShowLogInError(true);
+                });
     }
 
-    inputChangedHandler = (event, inputIdentifier) => {
-        const updatedLogInForm = { ...this.state.logInForm };
-        const updatedFormElement = { ...updatedLogInForm[inputIdentifier] };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedLogInForm[ inputIdentifier ] = updatedFormElement;
-
-        let formIsValid = true;
-        for ( let inputIdentifier in updatedLogInForm ) {
-            formIsValid = updatedLogInForm[ inputIdentifier ].valid && formIsValid;
+    const validateForm = () => {
+        const validEmailRegEx = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+        let valid = true;
+        if (email.trim().length < emailMinLength) {
+            setEmailError('Minimal email length is 6 characters!');
+            valid = false;
+        } else if (email.trim().length > emailMaxLength) {
+            setEmailError('Maximum email length is 40 characters!');
+            valid = false;
+        } else if (!validEmailRegEx.test(email.trim())) {
+            setEmailError('Please provide valid email!');
+            valid = false;
         }
 
-        this.setState({ logInForm: updatedLogInForm, formIsValid: formIsValid });
+        if (password.trim().length < passwordMinLength) {
+            setPasswordError('Minimal password length is 6 characters!');
+            valid = false;
+        } else if (password.trim().length > passwordMaxLength) {
+            setPasswordError('Maximum password length is 20 characters!');
+            valid = false;
+        }
+        return valid;
     }
 
-    render() {
-        const formElementsArray = [];
-        for (let key in this.state.logInForm) {
-            formElementsArray.push({
-               id: key,
-               config: this.state.logInForm[key]
-            });
-        }
-
-        let logInForm = (
+    return (
+        <div className={classes.LogIn}>
+            <div className={classes.Title}>
+                <Title>Welcome!</Title>
+                <Title>Please log in to get started.</Title>
+            </div>
             <AuthContext.Consumer>
                 {(context) =>
-                    <form onSubmit={(event) => this.logInHandler(event, context.updateUser) }>
-                        {formElementsArray.map( formElement => (
-                          <div>
-                            <Input key={ formElement.id }
-                                   elementType={ formElement.config.elementType }
-                                   elementConfig={ formElement.config.elementConfig }
-                                   invalid={ !formElement.config.valid }
-                                   touched={ formElement.config.touched }
-                                   value={ formElement.config.value }
-                                   changed={ ( event ) => this.inputChangedHandler( event, formElement.id ) }/>
-                          </div>
-                        ))}
-                        { this.state.showMessage && <Sticker>
-                            {this.state.message.replace("Error: ", "")}
-                        </Sticker>}
-                    </form>}
+                    <form onSubmit={(event) => logInHandler(event, context.updateUser)}>
+                        <Input elementType='input'
+                               type='email'
+                               label='E-mail address'
+                               icon={<i><FaPen/></i>}
+                               placeholder='Start typing...'
+                               errorMessage={emailError}
+                               changed={e => {
+                                   setEmail(e.target.value);
+                                   setEmailError('')
+                               }}/>
+                        <Input elementType='password'
+                               label='Password'
+                               placeholder='Start typing...'
+                               errorMessage={passwordError}
+                               changed={e => {
+                                   setPassword(e.target.value);
+                                   setPasswordError('')
+                               }}/>
+                        <div className={classes.Links}>
+                            <div className={classes.Left}>
+                                <Input elementName='rememberMeCheckbox'
+                                       elementType='checkbox'
+                                       label='Remember me'
+                                       value={rememberMe}
+                                       changed={e => setRememberMe(prevState => !prevState)}/>
+                            </div>
+                            <div className={classes.Right}>
+                                <Link href='/reset'>Recover password</Link>
+                            </div>
+                        </div>
+                        <Button buttonType='Regular'
+                                loading={loading}>
+                            Log In
+                        </Button>
+                        {showLogInError &&
+                            <div className={classes.Error}>
+                                <p>{logInError}</p>
+                            </div>}
+                    </form>
+                }
             </AuthContext.Consumer>
-        )
-
-        return(
-            <div className={classes.LogIn}>
-                <div className={classes.Title}>
-                    <Title>Welcome!</Title>
-                    <Title>Please log in to get started.</Title>
-                </div>
-                { logInForm }
-                <div className={classes.Links}>
-                    <div className={classes.Left}>
-                        <Input elementName='rememberMeCheckbox' elementType='checkbox' label='Remember me' />
-                    </div>
-                    <div className={classes.Right}>
-                        <Link href='/'>Recover password</Link>
-                    </div>
-                </div>
-                <Button buttonType='Regular'
-                        disabled={ !this.state.formIsValid }
-                        loading = { this.state.loading }>
-                    Log In
-                </Button>
-            </div>
-        );
-    }
-};
+        </div>
+    );
+}
 
 export default LogIn;

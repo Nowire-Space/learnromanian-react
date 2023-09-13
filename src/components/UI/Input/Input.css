@@ -126,3 +126,10 @@
     width: 50%;
 }
 
+.Error {
+    text-align: center;
+}
+
+.Error p {
+    color: #d02129;
+}
