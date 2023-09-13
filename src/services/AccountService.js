@@ -1,8 +1,8 @@
-import axiosBackendTest from '../axios-backend-test';
+import axiosBackend from '../axios-backend';
 
 class AccountService {
     static logIn( username, password ) {
-        return axiosBackendTest
+        return axiosBackend
             .post( 'account/authenticate', { username, password } )
             .then( response => {
                 if ( response.data.token ) {
@@ -18,7 +18,7 @@ class AccountService {
     }
 
     static register(email, firstname, lastname, phoneNumber, password, confirmPassword) {
-        return axiosBackendTest.post( 'account/create', {
+        return axiosBackend.post( 'account/create', {
             'userFirstName': firstname,
             'userFamilyName': lastname,
             'userPhoneNumber': phoneNumber,
@@ -29,12 +29,12 @@ class AccountService {
     }
 
     static validate( token ) {
-        return axiosBackendTest.post( 'account/validate/'.concat(token) );
+        return axiosBackend.post( 'account/validate/'.concat(token) );
     }
 
     static reset( email ) {
         console.log('calling', email);
-        return axiosBackendTest.post( 'account/password/reset', {email} );
+        return axiosBackend.post( 'account/password/reset', {email} );
     }
 
     static getCurrentUser() {
