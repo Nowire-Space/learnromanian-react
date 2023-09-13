@@ -5,4 +5,4 @@ COPY package-lock.json .
 RUN npm i
 COPY . .
 EXPOSE 3001
-CMD [ "npm", "build" ]
+CMD [ "npm", "run", "build" ]
