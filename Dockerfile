@@ -6,3 +6,5 @@ RUN npm i
 COPY . .
 EXPOSE 3001
 CMD [ "npm", "run", "build" ]
+CMD [ "npm", "install", "-g", "serve" ]
+CMD [ "serve", "-s", "build" ]
