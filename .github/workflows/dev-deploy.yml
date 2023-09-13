@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: ./deployment/front.sh DEV ${{ vars.RUNNING_PORT }} ${{ vars.VERSION }} ${{ secrets.API_URL }} 
+          script: ./home/deployer/deployment/front.sh DEV ${{ vars.RUNNING_PORT }} ${{ vars.VERSION }} ${{ secrets.API_URL }} 
