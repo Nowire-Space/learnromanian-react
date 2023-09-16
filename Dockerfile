@@ -3,5 +3,5 @@ WORKDIR /learnromanian-react
 COPY package.json .
 RUN npm i
 COPY . .
-EXPOSE 3001
+EXPOSE 3000
 CMD [ "npm", "start" ]
